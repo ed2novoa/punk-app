@@ -1,6 +1,6 @@
 <template>
   <header class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-end">
-    <a class="navbar-brand" href="/">Welcome to Punk API App</a>
+    <a class="navbar-brand" href="/">Welcome to the Punk API App</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main-menu" aria-controls="navbar-main-menu" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style scoped>
-#navbar-main-menu>ul>li{
+li.nav-item{
   margin-right: 5%;
 }
 #navbar-main-menu .justify-content-end{

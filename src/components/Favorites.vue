@@ -5,13 +5,18 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
+
 export default {
   name: 'Favorites',
   data () {
     return {
       msg: 'Favorites'
     }
-  }
+  },
+  computed : mapGetters({
+    getFavorites : 'getFavorites',
+  })
 }
 </script>
 
