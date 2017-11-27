@@ -18,6 +18,7 @@ export const store = new Vuex.Store({
     },
     mutations: {
       setCurrentBeers(state, beers){
+        beers.forEach(function(obj) { obj.isFavorite = false; });
         state.currentBeers = beers;
       },
       addFavorite(state, beer){

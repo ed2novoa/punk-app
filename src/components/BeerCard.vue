@@ -6,9 +6,9 @@
           <img :src="beer.image_url" alt="Beer Image">
         </div>
         <div class="beer-desc-container">
-          <span class="oi oi-heart"></span>
+          <span @click="toogleFavorite" class="oi oi-heart"></span>
           <h5 class="beer-name">{{beer.name}}</h5>
-          <p class="beer-desc">{{beer.description | minDescription}}</p>
+          <p class="beer-desc">{{beer.description | reduceDescription}}</p>
         </div>
       </div>
     </div>
@@ -20,14 +20,23 @@ export default {
   props : ['beer'],
   name: 'BeerCard',
   filters : {
-    minDescription(description){
+    reduceDescription(description){
       return description.substring(0,85) + "...";
     }
+  },
+  methods:{
+    toogleFavorite(event){
+      $(event.target.closest('span')).toggleClass('favorite');
+
+      if (!this.beer.isFavorite){
+        this.$store.commit('addFavorite', this.beer);
+      } else {
+        this.beer.isFavorite
+        console.log("else");
+        // this.$store.commit('removeFavorite', this.beer);
+      }
+    }
   }
-  // data () {
-  //   return {
-  //   }
-  // }
 }
 </script>
 

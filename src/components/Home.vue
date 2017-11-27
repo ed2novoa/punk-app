@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="row">
-        <BeerCard v-for="beer in getCurrentBeers" :beer="beer" :key="beer.id"/>
+      <BeerCard v-for="beer in getCurrentBeers" :beer="beer" :key="beer.id"/>
     </div>
   </div>
 </template>
