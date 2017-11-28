@@ -25,13 +25,8 @@ export default {
     }
   },
   components : {BeerCard},
-  mounted() {
-    const vm = this;
-    fetch("https://api.punkapi.com/v2/beers?per_page=9")
-    .then(response => response.json())
-    .then(function(data) {
-      vm.$store.commit('setCurrentBeers', data);
-    });
+  created() {
+    this.$store.dispatch('setCurrentBeers', this);
   },
   computed : mapGetters({
     getFavorites : 'getFavorites',

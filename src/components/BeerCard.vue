@@ -6,7 +6,7 @@
           <img :src="beer.image_url" alt="Beer Image">
         </div>
         <div class="beer-desc-container">
-          <span @click="toogleFavorite" class="oi oi-heart"></span>
+          <span @click="toogleFavorite" class="oi oi-heart" :data-id="beer.id"></span>
           <h5 class="beer-name">{{beer.name}}</h5>
           <p class="beer-desc">{{beer.description | reduceDescription}}</p>
         </div>
@@ -19,25 +19,52 @@
 export default {
   props : ['beer'],
   name: 'BeerCard',
+  mounted(){
+    if (this.beer.isFavorite === true){
+      $('span[data-id="'+this.beer.id+'"]').addClass('favorite');
+    } else {
+      $('span[data-id="'+this.beer.id+'"]').removeClass('favorite');
+    }
+  },
+  updated(){
+    if (this.beer.isFavorite === true){
+      $('span[data-id="'+this.beer.id+'"]').addClass('favorite');
+    } else {
+      $('span[data-id="'+this.beer.id+'"]').removeClass('favorite');
+    }
+  },
   filters : {
+    // A simple method to reduce the string to show on the card
     reduceDescription(description){
       return description.substring(0,85) + "...";
     }
   },
   methods:{
+    // Toogles the beer favorite state
     toogleFavorite(event){
       $(event.target.closest('span')).toggleClass('favorite');
 
       if (!this.beer.isFavorite){
+        // console.log("if");
         this.$store.commit('addFavorite', this.beer);
       } else {
-        this.beer.isFavorite
-        console.log("else");
-        // this.$store.commit('removeFavorite', this.beer);
+
+        if (this.$router.history.current.name === 'Favorites'){
+          const vm = this;
+          $(event.target).closest('.beer-card').css('opacity', '0');
+          setTimeout(() => vm.$store.commit('removeFavorite', this.beer),
+          500 );
+        } else {
+          this.$store.commit('removeFavorite', this.beer);          
+        }
+
       }
+      // vm.$store.commit('removeFavorite', this.beer);
+
     }
   }
 }
+
 </script>
 
 
@@ -50,6 +77,7 @@ export default {
   height: 200px;
   margin-bottom: 20px;
   background-color: #e3e3e3;
+  transition: opacity 500ms linear;
 }
 .beer-img-container{
   width: 105px;

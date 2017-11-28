@@ -17,11 +17,11 @@ import BeerCard from './BeerCard';
 
 export default {
   name: 'Favorites',
-  data () {
-    return {
-      msg: 'Favorites'
-    }
-  },
+  // data () {
+  //   return {
+  //     msg: 'Favorites'
+  //   }
+  // },
   components : {BeerCard},
   computed : mapGetters({
     getFavorites : 'getFavorites',
