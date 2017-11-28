@@ -20,18 +20,10 @@ export default {
   props : ['beer'],
   name: 'BeerCard',
   mounted(){
-    if (this.beer.isFavorite === true){
-      $('span[data-id="'+this.beer.id+'"]').addClass('favorite');
-    } else {
-      $('span[data-id="'+this.beer.id+'"]').removeClass('favorite');
-    }
+    this.isFavorite();
   },
   updated(){
-    if (this.beer.isFavorite === true){
-      $('span[data-id="'+this.beer.id+'"]').addClass('favorite');
-    } else {
-      $('span[data-id="'+this.beer.id+'"]').removeClass('favorite');
-    }
+    this.isFavorite();
   },
   filters : {
     // A simple method to reduce the string to show on the card
@@ -42,22 +34,33 @@ export default {
   methods:{
     // Toogles the beer favorite state
     toogleFavorite(event){
+      //first it toggles the heart-icon class
       $(event.target.closest('span')).toggleClass('favorite');
 
+      // Checks if it is not a favorite one yet
       if (!this.beer.isFavorite){
         // console.log("if");
         this.$store.commit('addFavorite', this.beer);
       } else {
-
+        //if the app is in the Favorites page it uses a fade out effect to un-favorite it
         if (this.$router.history.current.name === 'Favorites'){
           const vm = this;
           $(event.target).closest('.beer-card').css('opacity', '0');
           setTimeout(() => vm.$store.commit('removeFavorite', this.beer),
           500 );
-        } else {
+        }
+        // If the app is in the Home page it doesn't uses the effect
+        else {
           this.$store.commit('removeFavorite', this.beer);
         }
-
+      }
+    },
+    isFavorite(){
+      // Checks and sets the favorite class to the corresponding card state
+      if (this.beer.isFavorite === true){
+        $('span[data-id="'+this.beer.id+'"]').addClass('favorite');
+      } else {
+        $('span[data-id="'+this.beer.id+'"]').removeClass('favorite');
       }
     }
   }

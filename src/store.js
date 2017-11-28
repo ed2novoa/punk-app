@@ -26,7 +26,7 @@ export const store = new Vuex.Store({
         const index = _.indexOf(favoritesIds, beer.id);
         // console.dir(index);
         if( index >= 0){
-         console.log('if in');
+        //  console.log('if in');
           beer.isFavorite = true;
         }
         else {
@@ -49,10 +49,24 @@ export const store = new Vuex.Store({
       // console.dir(state.favorites);
 
     },
+    searchBeers(state,beers){
+
+
+    }
   },
   actions: {
     setCurrentBeers(context) {
       axios.get('https://api.punkapi.com/v2/beers?per_page=9')
+      .then(function (response) {
+        // console.log(response);
+        context.commit('setCurrentBeers', response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    },
+    searchBeers(context, searchTerm) {
+      axios.get('https://api.punkapi.com/v2/beers?beer_name='+searchTerm+'&per_page=9')
       .then(function (response) {
         // console.log(response);
         context.commit('setCurrentBeers', response.data);

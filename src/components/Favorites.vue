@@ -35,6 +35,6 @@ export default {
   padding: 60px 0 60px 0;
 }
 .title-container{
-  margin-bottom: 50px;
+  margin-bottom: 46px;
 }
 </style>

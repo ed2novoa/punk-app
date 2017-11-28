@@ -3,12 +3,13 @@
     <div class="row">
       <div class="col-12 form-inline justify-content-center search-cotainer">
         <label for="search-box">Search your favorite beer by name:&nbsp;&nbsp;&nbsp;</label>
-        <input class="form-control" type="text" id="search-box" v-model="searchTerm" placeholder="Beer name...">
-        <button type="button" class="btn btn-primary">Search</button>
+        <input class="form-control" type="text" id="search-box" v-model="searchTerm" placeholder="Beer name..." @keyup.enter="searchBeers">
+        <button type="button" class="btn btn-primary" @click="searchBeers">Search</button>
       </div>
     </div>
     <div class="row">
-      <BeerCard v-for="beer in getCurrentBeers" :beer="beer" :key="beer.id"/>
+      <BeerCard v-if="getCurrentBeers.length > 0" v-for="beer in getCurrentBeers" :beer="beer" :key="beer.id"/>
+      <h3 v-else>Ooopsss... Something went wrong... </h3>
     </div>
   </div>
 </template>
@@ -22,6 +23,11 @@ export default {
   data () {
     return {
       searchTerm: ''
+    }
+  },
+  methods : {
+    searchBeers(){
+      this.$store.dispatch('searchBeers', this.searchTerm);
     }
   },
   components : {BeerCard},
