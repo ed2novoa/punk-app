@@ -43,6 +43,9 @@ export default {
 
 
 <style scoped>
+.container{
+  overflow-x: hidden;
+}
 .home-main-container {
   padding: 60px 0 60px 0;
 }

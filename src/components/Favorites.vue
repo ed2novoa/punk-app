@@ -17,11 +17,6 @@ import BeerCard from './BeerCard';
 
 export default {
   name: 'Favorites',
-  // data () {
-  //   return {
-  //     msg: 'Favorites'
-  //   }
-  // },
   components : {BeerCard},
   computed : mapGetters({
     getFavorites : 'getFavorites',
@@ -31,6 +26,9 @@ export default {
 
 
 <style scoped>
+.container{
+  overflow-x: hidden;
+}
 .favorites-main-container {
   padding: 60px 0 60px 0;
 }

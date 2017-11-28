@@ -34,18 +34,19 @@ export default {
   methods:{
     // Toogles the beer favorite state
     toogleFavorite(event){
-      //first it toggles the heart-icon class
+      //At first it toggles the heart-icon class
       $(event.target.closest('span')).toggleClass('favorite');
 
       // Checks if it is not a favorite one yet
       if (!this.beer.isFavorite){
-        // console.log("if");
         this.$store.commit('addFavorite', this.beer);
       } else {
         //if the app is in the Favorites page it uses a fade out effect to un-favorite it
         if (this.$router.history.current.name === 'Favorites'){
           const vm = this;
+          // This effect works along with the css transition property
           $(event.target).closest('.beer-card').css('opacity', '0');
+          // It waits the transition to happen before removing the element from the DOM
           setTimeout(() => vm.$store.commit('removeFavorite', this.beer),
           500 );
         }
@@ -55,8 +56,8 @@ export default {
         }
       }
     },
+    // Checks and sets the favorite class to the corresponding card state
     isFavorite(){
-      // Checks and sets the favorite class to the corresponding card state
       if (this.beer.isFavorite === true){
         $('span[data-id="'+this.beer.id+'"]').addClass('favorite');
       } else {
@@ -71,6 +72,7 @@ export default {
 
 <style scoped>
 .beer-card{
+  overflow: hidden;
   border-width: thin;
   border-style: solid;
   border-radius: 1rem;
@@ -79,6 +81,9 @@ export default {
   margin-bottom: 20px;
   background-color: #e3e3e3;
   transition: opacity 500ms linear;
+  -webkit-transition: opacity 500ms linear;
+  -o-transition: opacity 500ms linear;
+  -moz-transition: opacity 500ms linear;
 }
 .beer-img-container{
   width: 105px;
@@ -116,4 +121,21 @@ export default {
 .oi-heart.favorite{
   color: #ff143f;
 }
+/************ Media Queries *************/
+@media (max-width: 1199px) {
+  .beer-card{
+    height: 220px !important;
+  }
+}
+@media (max-width: 990px) {
+  .beer-card{
+    height: 270px !important;
+  }
+}
+@media (max-width: 767px) {
+  .beer-card{
+    height: 200px !important;
+  }
+}
+
 </style>
