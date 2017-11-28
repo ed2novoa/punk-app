@@ -55,12 +55,10 @@ export default {
           setTimeout(() => vm.$store.commit('removeFavorite', this.beer),
           500 );
         } else {
-          this.$store.commit('removeFavorite', this.beer);          
+          this.$store.commit('removeFavorite', this.beer);
         }
 
       }
-      // vm.$store.commit('removeFavorite', this.beer);
-
     }
   }
 }
