@@ -70,7 +70,15 @@ export default {
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
+
+@mixin transition($prop,$time,$ease){
+  transition: $prop $time $ease;
+  -webkit-transition: $prop $time $ease;
+  -o-transition: $prop $time $ease;
+  -moz-transition: $prop $time $ease;
+}
+
 .beer-card{
   overflow: hidden;
   border-width: thin;
@@ -80,10 +88,7 @@ export default {
   height: 200px;
   margin-bottom: 20px;
   background-color: #e3e3e3;
-  transition: opacity 500ms linear;
-  -webkit-transition: opacity 500ms linear;
-  -o-transition: opacity 500ms linear;
-  -moz-transition: opacity 500ms linear;
+  @include transition(opacity,500ms,linear);
 }
 .beer-img-container{
   width: 105px;
